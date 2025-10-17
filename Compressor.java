@@ -21,7 +21,13 @@ public class Compressor {
             
         }
         
-      
+        public void upPressure(){
+
+        }
+
+        public void downPressure(){
+
+        }
         
     }
 }

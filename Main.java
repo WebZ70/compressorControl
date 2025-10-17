@@ -13,20 +13,28 @@ public class Main {
 
     public static void main(String[] args){
         PrintStream out = System.out;
-        out.print("Enter initial T0(K) = ");
+        out.print("Введите начальное значение T0(K) = ");
         double temp0 = inputProgramm();
-        out.print("Enter initial P0(Pa) = ");
+        out.print("Введите начальное значение P0(Pa) = ");
         double press0 = inputProgramm();
-        out.print("Enter final Pk(Pa) = ");
+        out.print("Введите конечнеое значение Pk(Pa) = ");
         double pressF = inputProgramm();
         Compressor compressor = new Compressor();
         Compressor.ChamberCompressorOne chamberOne = compressor.new ChamberCompressorOne(temp0, press0, pressF);
 
         double different = (pressF - press0) / 10.0;
-
-        for(double temp = press0; temp <= pressF; temp += different){
-            out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
+        if (different > 0.0) {
+            for(double temp = press0; temp <= pressF; temp += different){
+                out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
+            }
+        } else {
+            for(double temp = press0; temp >= pressF; temp += different){
+                out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
+            }
         }
+
+
+
     }
 
     public static double inputProgramm(){
