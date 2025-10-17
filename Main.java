@@ -27,12 +27,6 @@ public class Main {
         for(double temp = press0; temp <= pressF; temp += different){
             out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
         }
-
-        for(double temp = press0; temp >= pressF; temp += different){
-            out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
-        }
-        
-         
     }
 
     public static double inputProgramm(){
