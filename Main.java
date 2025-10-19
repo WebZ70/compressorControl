@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,17 +24,27 @@ public class Main {
         Compressor.ChamberCompressorOne chamberOne = compressor.new ChamberCompressorOne(temp0, press0, pressF);
 
         double different = (pressF - press0) / 10.0;
-        if (different > 0.0) {
+        if (different == 0.0) {
+            out.println("Процесс не начался. Давление не изменилось");
+        } else if (different > 0.0) {
             for(double temp = press0; temp <= pressF; temp += different){
-                out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
+                try {
+                    out.println("Tk = " + new DecimalFormat("#.00").format(chamberOne.currentMoment(temp0, press0, temp)) + " K");
+                    Thread.sleep(600);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } else {
             for(double temp = press0; temp >= pressF; temp += different){
-                out.println("Tk = " + chamberOne.currentMoment(temp0, press0, temp) + " K");
+                try {
+                    out.println("Tk = " + new DecimalFormat("#.00").format(chamberOne.currentMoment(temp0, press0, temp)) + " K");
+                    Thread.sleep(600);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
-
-
 
     }
 
