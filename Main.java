@@ -26,24 +26,8 @@ public class Main {
         double different = (pressF - press0) / 10.0;
         if (different == 0.0) {
             out.println("Процесс не начался. Давление не изменилось");
-        } else if (different > 0.0) {
-            for(double temp = press0; temp <= pressF; temp += different){
-                try {
-                    out.println("Tk = " + new DecimalFormat("#.00").format(chamberOne.currentMoment(temp0, press0, temp)) + " K");
-                    Thread.sleep(600);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         } else {
-            for(double temp = press0; temp >= pressF; temp += different){
-                try {
-                    out.println("Tk = " + new DecimalFormat("#.00").format(chamberOne.currentMoment(temp0, press0, temp)) + " K");
-                    Thread.sleep(600);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            chamberOne.pressure();
         }
 
     }
