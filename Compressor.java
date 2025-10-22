@@ -17,19 +17,36 @@ public class Compressor {
             this.deltaPressure = (pressureFinal - pressureInit) / 10.0;
         }
 
-        private void splitValuePressure(){
+        private ArrayList<Double> splitValuePressure(){
             ArrayList<Double> pressure = new ArrayList<>();
             double delta = Math.abs(this.pressureFinal - this.pressureInit);
             double step = delta/10.0;
+            double temp = this.pressureInit;
 
+            if (this.pressureFinal > this.pressureInit){
+                step *= 1;
+            } else { 
+                step *= -1;
+            }
+
+            for (int i = 0; i < 11; i++){
+                pressure.add(temp);
+                temp += step;
+            }
+
+            return pressure;
+        }
+
+        private double changeTemperature(double currPressure){
+            return this.temperatureInit * currPressure / this.pressureInit;
         }
 
         public void pressure(){
-//            double[] parts = new double[10];
-//            Double<double> parts = new ArrayList<>();
-            for(double currPressure = this.pressureInit; currPressure <= this.pressureFinal; currPressure += this.deltaPressure){
-                double t = this.temperatureInit * currPressure / this.pressureInit;
-                System.out.println("Tk = " + new DecimalFormat("#.00").format(t) + " K");
+            ArrayList<Double> pressureSplit = new ArrayList<>();
+            pressureSplit = splitValuePressure();
+            for (double currPressure : pressureSplit){
+                double t = changeTemperature(currPressure);
+                System.out.println("P = " + new DecimalFormat("#.00").format(currPressure) + " Pa " + "Tk = " + new DecimalFormat("#.00").format(t) + " K");
             }
 
         }
